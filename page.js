@@ -529,6 +529,7 @@
         code.classList.add("prettyprint");
         code.innerHTML = j.diffHtml;
         if (window.PR) {
+          PR.prettyPrint();
           // the returned code is already prettified
           // when we do so again, new lines (represented by &nbsp;) get updated to not contain &nbsp;
           // this makes the diff appear without any new lines
@@ -539,20 +540,24 @@
           </li>
           */
           // the fix is to identify these lines and add &nbsp; back to them
-          PR.prettyPrint();
-          fixEmptyLines(code);
+          const lines = code.querySelectorAll('li');
+          lines.forEach(line => {
+            const span = line.querySelector('span');
+            if (span && span.textContent.trim() === '') {
+              span.innerHTML = '&nbsp;';
+            }
+            const del = line.querySelector('del');
+            if (del && del.textContent.trim() === '') {
+              del.innerHTML = '&nbsp;';
+            }
+            const ins = line.querySelector('ins');
+            if (ins && ins.textContent.trim() === '') {
+              ins.innerHTML = '&nbsp;';
+            }
+          });
         }
       })
       .catch(console.error);
-      function fixEmptyLines(code) {
-        const lines = code.querySelectorAll('li');
-        lines.forEach(line => {
-          const span = line.querySelector('span');
-          if (span && span.textContent.trim() === '') {
-            span.innerHTML = '&nbsp;';
-          }
-        });
-      }
     });
   }
 })();
