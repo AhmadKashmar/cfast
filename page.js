@@ -315,6 +315,10 @@
     const popupHeader = popupHeaders[1] || popupHeaders[0];
     const popupSource = popupSources[1] || popupSources[0];
     if (!popupHeader || !popupSource || popupSource.innerHTML.trim() === '') return;
+    // if shift + ctrl + c is clicked, we shouldn't do anything
+    if(e.shiftKey && e.ctrlKey && (e.key === 'c' || e.key === 'C')) {
+      return;
+    }
     if (e.shiftKey && (e.key === 'c' || e.key === 'C')) {
       if (e.repeat) return;
       e.preventDefault();
