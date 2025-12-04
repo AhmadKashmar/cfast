@@ -519,13 +519,13 @@
         { method: 'POST', credentials: 'same-origin' }
       )
       .then(r => r.json())
-	  .then((j) => {
-	  	const code = document.querySelectorAll(".source-popup-source")[1] || document.querySelectorAll(".source-popup-source")[0];
-      code.classList.remove("prettyprinted");
-      code.classList.add("prettyprint");
-      code.innerHTML = j.diffHtml;
-		if (window.PR) PR.prettyPrint();
-	  })
+      .then((j) => {
+        const code = document.querySelectorAll(".source-popup-source")[1] || document.querySelectorAll(".source-popup-source")[0];
+        code.classList.remove("prettyprinted");
+        code.classList.add("prettyprint");
+        code.innerHTML = j.diffHtml;
+        if (window.PR) PR.prettyPrint();
+      })
       .catch(console.error);
     });
   }
